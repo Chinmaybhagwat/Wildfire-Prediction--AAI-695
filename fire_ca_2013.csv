@@ -1,4 +1,4 @@
-IncidentId;UniqueId;Name;Location;Latitude;Longitude;AcresBurnedDisplay;PercentContainedDisplay;ExternalIncidentLink;CountiesList;UpdatedDate;StartedDate;AdminUnit;IncidentTypeDisplay;Url;IsActive
+IncidentId;UniqueId;Name;Location;Latitude;Longitude;AcresBurnedDisplay;PercentContainedDisplay;ExternalIncidentLink;CountiesList;UpdatedDate;StartedDate;AdminUnit;IncidentTypeDisplay;Url;IsActive;
 653;7a4a3552-3bea-4428-984c-e2edef13980f;Becks Fire;North of Highway 29, southeast of Kelseyville;0.0;0.0;296;100%;;Lake;2013-01-23 10:15:00;2013-01-22;CAL FIRE Sonoma-Lake-Napa Unit;;https://www.fire.ca.gov/incidents/2013/1/22/becks-fire/;N;
 654;094719ba-a47b-4abb-9ec5-a506b2b9fd23;River Fire;south of Narrow Gauge Rd & north of Hwy 136, east of Lone Pine;36.602575;-118.01651;406;100%;;Inyo;2013-02-28 20:00:00;2013-02-24;CAL FIRE San Bernardino Unit;;https://www.fire.ca.gov/incidents/2013/2/24/river-fire/;N;
 655;99cb21da-9639-4300-9a97-1cadc993189f;Jurupa Fire;Rio Rancho Rd & Calle Hermosa, Jurupa Valley;0.0;0.0;311;100%;;Riverside;2013-03-02 19:00:00;2013-02-28;CAL FIRE / Riverside County Fire;;https://www.fire.ca.gov/incidents/2013/2/28/jurupa-fire/;N;

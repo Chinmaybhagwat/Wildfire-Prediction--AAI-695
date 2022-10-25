@@ -1,4 +1,4 @@
-IncidentId;UniqueId;Name;Location;Latitude;Longitude;AcresBurnedDisplay;PercentContainedDisplay;ExternalIncidentLink;CountiesList;UpdatedDate;StartedDate;AdminUnit;IncidentTypeDisplay;Url;IsActive
+IncidentId;UniqueId;Name;Location;Latitude;Longitude;AcresBurnedDisplay;PercentContainedDisplay;ExternalIncidentLink;CountiesList;UpdatedDate;StartedDate;AdminUnit;IncidentTypeDisplay;Url;IsActive;
 2005;6004d3e5-66f8-487a-80a4-689d3852378c;Pilot Fire;Pilot Ridge Rd & USFS Route 1, southwest of Willow Creek;40.61805556;-123.67555556;30;100%;;Humboldt;2019-01-15 10:38:00;2019-01-01;CAL FIRE Humbolt-Del Norte Unit;;https://www.fire.ca.gov/incidents/2019/1/1/pilot-fire/;N;
 2014;31cbc968-6d9d-412b-8bc3-6846ca398fe2;Scott Fire;off Scott Forbes Rd, 5 miles east of Browns Valley;39.24678;-121.32399;80;100%;;Yuba;2019-06-27 08:24:51;2019-06-25;CAL FIRE Nevada-Yuba-Placer Unit;;https://www.fire.ca.gov/incidents/2019/6/25/scott-fire/;N;
 2016;3b5c5d57-f61d-4c7d-a966-9d522c77e8fc;Girasol Fire;Hwy 111 and Tramway Rd, Palm Springs;0.0;0.0;30;100%;;Riverside;2019-04-10 10:23:00;2019-04-09;Palm Springs City Fire;;https://www.fire.ca.gov/incidents/2019/4/9/girasol-fire/;N;

@@ -1,4 +1,4 @@
-IncidentId;UniqueId;Name;Location;Latitude;Longitude;AcresBurnedDisplay;PercentContainedDisplay;ExternalIncidentLink;CountiesList;UpdatedDate;StartedDate;AdminUnit;IncidentTypeDisplay;Url;IsActive
+IncidentId;UniqueId;Name;Location;Latitude;Longitude;AcresBurnedDisplay;PercentContainedDisplay;ExternalIncidentLink;CountiesList;UpdatedDate;StartedDate;AdminUnit;IncidentTypeDisplay;Url;IsActive;
 998;3135c367-1274-4cc4-9152-661f6fd7707e;Creek Fire;Dry Creek Road 3 miles west of Yountville;38.40958;-122.43172;65;100%;;Napa;2016-10-12 18:00:00;2016-10-10;CAL FIRE Sonoma-Lake-Napa Unit;;https://www.fire.ca.gov/incidents/2016/10/10/creek-fire/;N;
 1075;7106ba43-100b-41f9-acbf-9fb9e9ab9ef7;Taglio Fire;I-5 & Taglio Road, east of Gustine;37.2171;-121.08036;30;100%;;Merced;2016-04-24 15:30:00;2016-04-24;CAL FIRE Madera-Mariposa-Merced Unit;;https://www.fire.ca.gov/incidents/2016/4/24/taglio-fire/;N;
 1086;2c77fa07-73e6-45fe-a527-5bd526bdef41;Gorman Fire;off northbound Interstate 5 at Gorman Creek;34.6888731;-118.7892593;0;100%;;Los Angeles;2016-04-19 15:30:00;2016-04-19;Los Angeles County Fire;;https://www.fire.ca.gov/incidents/2016/4/19/gorman-fire/;N;
