@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 from datetime import datetime, date, timedelta
+import os.path
 
 ca_min_lat =  32.5121
 ca_max_lat = 42.0126
@@ -70,6 +71,12 @@ def match_weathersts_to_grid(grid, stations):
                     station_id = sts.iloc[i,0]
             grid_station[g.grid_id] = [int(station_id)]
     return grid_station
+def is_float(element):
+    try:
+        float(element)
+        return True
+    except ValueError:
+        return False
 
 #      1.  Station Id
 #      2.  Date
@@ -106,25 +113,29 @@ def match_weathersts_to_grid(grid, stations):
 def extract_weather_2013(station):
     stationIdString = str(station).zfill(3)
     file_name = f'./weather_data/dailyStns2013/2013daily{stationIdString}.csv'
-    df = pandas.read_csv(file_name, header=None)
     data = {}
-    for i in range(len(df)):
-        date_format = datetime.strptime(df.iloc[i,1], '%m/%d/%Y').date()
-        data[date_format] = {"solar_rad": df.iloc[i,4],
-                            "soil_temp": df.iloc[i,6],
-                            "max_air_temp": df.iloc[i,8],
-                            "min_air_temp": df.iloc[i,10],
-                            "aver_air_temp": df.iloc[i,12],
-                            "aver_vapor_press": df.iloc[i,14],
-                            "aver_wind_speed": df.iloc[i,16],
-                            "precipitation": df.iloc[i,18],
-                            "max_humidity": df.iloc[i,20],
-                            "min_humidity": df.iloc[i,22],
-                            "eto": df.iloc[i,24],
-                            "aver_humidity": df.iloc[i, 26],
-                            "dew_point": df.iloc[i,28],
-                            "wind_run": df.iloc[i,30]
-                            }
+    if(os.path.isfile(file_name)):
+        lines = open(file_name, 'r').readlines()
+        for line in lines:
+            line = line.strip().split(',')
+            line =[l.strip() for l in line]
+            date_format = datetime.strptime(line[1], '%m/%d/%Y').date()
+            data[date_format] = {}
+            data[date_format]["solar_rad"] = float(line[4]) if(is_float(line[4])) else 'NaN'
+            data[date_format]["soil_temp"] = float(line[6]) if (is_float(line[6])) else 'NaN'
+            data[date_format]["max_air_temp"] = float(line[8]) if (is_float(line[8])) else 'NaN'
+            data[date_format]["min_air_temp"] = float(line[10]) if (is_float(line[10])) else 'NaN'
+            data[date_format]["aver_air_temp"] = float(line[12]) if (is_float(line[12])) else 'NaN'
+            data[date_format]["aver_vapor_press"] = float(line[14]) if (is_float(line[14])) else 'NaN'
+            data[date_format]["aver_wind_speed"] = float(line[16]) if (is_float(line[16])) else 'NaN'
+            data[date_format]["precipitation"] = float(line[18]) if (is_float(line[18])) else 'NaN'
+            data[date_format]["max_humidity"] = float(line[20]) if (is_float(line[20])) else 'NaN'
+            data[date_format]["min_humidity"] = float(line[22]) if (is_float(line[22])) else 'NaN'
+            data[date_format]["eto"] = float(line[24]) if (is_float(line[24])) else 'NaN'
+            data[date_format]["aver_humidity"] = float(line[26]) if (is_float(line[26])) else 'NaN'
+            data[date_format]["dew_point"] = float(line[28]) if (is_float(line[28])) else 'NaN'
+            data[date_format]["wind_run"] = float(line[30]) if (is_float(line[30])) else 'NaN'
+
     return data
 
   # A   1.  	Station Id
@@ -164,26 +175,30 @@ def extract_weather(year, station):
         file_name = f'./weather_data/dailyStns{year}/daily{stationIdString}.csv'
     else:
         file_name = f'./weather_data/dailyStns{year}/{year}daily{stationIdString}.csv'
-    df = pandas.read_csv(file_name, header=None)
     data = {}
-    for i in range(len(df)):
-        date_format = datetime.strptime(df.iloc[i, 1], '%m/%d/%Y').date()
-        data[date_format] = {"eto": df.iloc[i, 3],
-                             "precipitation": df.iloc[i, 5],
-                             "solar_rad": df.iloc[i, 7],
-                             "aver_vapor_press": df.iloc[i, 9],
-                             "max_air_temp": df.iloc[i, 11],
-                             "min_air_temp": df.iloc[i, 13],
-                             "aver_air_temp": df.iloc[i, 15],
-                             "max_humidity": df.iloc[i, 17],
-                             "min_humidity": df.iloc[i, 19],
-                             "aver_humidity": df.iloc[i, 21],
-                             "dew_point": df.iloc[i, 23],
-                             "aver_wind_speed": df.iloc[i, 25],
-                             "wind_run": df.iloc[i, 27],
-                             "soil_temp": df.iloc[i, 29]
-                             }
+    if(os.path.isfile(file_name)):
+        lines = open(file_name, 'r').readlines()
+        for line in lines:
+            line = line.strip().split(',')
+            line = [l.strip() for l in line]
+            date_format = datetime.strptime(line[1], '%m/%d/%Y').date()
+            data[date_format] = {}
+            data[date_format]["eto"] = float(line[3]) if (is_float(line[3])) else 'NaN'
+            data[date_format]["precipitation"] = float(line[5]) if (is_float(line[5])) else 'NaN'
+            data[date_format]["solar_rad"] = float(line[7]) if (is_float(line[7])) else 'NaN'
+            data[date_format]["aver_vapor_press"] = float(line[9]) if (is_float(line[9])) else 'NaN'
+            data[date_format]["max_air_temp"] = float(line[11]) if (is_float(line[11])) else 'NaN'
+            data[date_format]["min_air_temp"] = float(line[13]) if (is_float(line[13])) else 'NaN'
+            data[date_format]["aver_air_temp"] = float(line[15]) if (is_float(line[15])) else 'NaN'
+            data[date_format]["max_humidity"] = float(line[17]) if (is_float(line[17])) else 'NaN'
+            data[date_format]["min_humidity"] = float(line[19]) if (is_float(line[19])) else 'NaN'
+            data[date_format]["aver_humidity"] = float(line[21]) if (is_float(line[21])) else 'NaN'
+            data[date_format]["dew_point"] = float(line[23]) if (is_float(line[23])) else 'NaN'
+            data[date_format]["aver_wind_speed"] = float(line[25]) if (is_float(line[25])) else 'NaN'
+            data[date_format]["wind_run"] = float(line[27]) if (is_float(line[27])) else 'NaN'
+            data[date_format]["soil_temp"] = float(line[29]) if (is_float(line[29])) else 'NaN'
     return data
+
 
 def extract_weather_2022(station):
     months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep']
@@ -191,24 +206,27 @@ def extract_weather_2022(station):
     data = {}
     for m in months:
         file_name = f'./weather_data/dailyStns2022/dailyStns{m}/{m}daily{stationIdString}.csv'
-        df = pandas.read_csv(file_name, header=None)
-        for i in range(len(df)):
-            date_format = datetime.strptime(df.iloc[i, 1], '%m/%d/%Y').date()
-            data[date_format] = {"eto": df.iloc[i, 3],
-                             "precipitation": df.iloc[i, 5],
-                             "solar_rad": df.iloc[i, 7],
-                             "aver_vapor_press": df.iloc[i, 9],
-                             "max_air_temp": df.iloc[i, 11],
-                             "min_air_temp": df.iloc[i, 13],
-                             "aver_air_temp": df.iloc[i, 15],
-                             "max_humidity": df.iloc[i, 17],
-                             "min_humidity": df.iloc[i, 19],
-                             "aver_humidity": df.iloc[i, 21],
-                             "dew_point": df.iloc[i, 23],
-                             "aver_wind_speed": df.iloc[i, 25],
-                             "wind_run": df.iloc[i, 27],
-                             "soil_temp": df.iloc[i, 29]
-                             }
+        if(os.path.isfile(file_name)):
+            lines = open(file_name, 'r').readlines()
+            for line in lines:
+                line = line.strip().split(',')
+                line = [l.strip() for l in line]
+                date_format = datetime.strptime(line[1], '%m/%d/%Y').date()
+                data[date_format] = {}
+                data[date_format]["eto"] = float(line[3]) if (is_float(line[3])) else 'NaN'
+                data[date_format]["precipitation"] = float(line[5]) if (is_float(line[5])) else 'NaN'
+                data[date_format]["solar_rad"] = float(line[7]) if (is_float(line[7])) else 'NaN'
+                data[date_format]["aver_vapor_press"] = float(line[9]) if (is_float(line[9])) else 'NaN'
+                data[date_format]["max_air_temp"] = float(line[11]) if (is_float(line[11])) else 'NaN'
+                data[date_format]["min_air_temp"] = float(line[13]) if (is_float(line[13])) else 'NaN'
+                data[date_format]["aver_air_temp"] = float(line[15]) if (is_float(line[15])) else 'NaN'
+                data[date_format]["max_humidity"] = float(line[17]) if (is_float(line[17])) else 'NaN'
+                data[date_format]["min_humidity"] = float(line[19]) if (is_float(line[19])) else 'NaN'
+                data[date_format]["aver_humidity"] = float(line[21]) if (is_float(line[21])) else 'NaN'
+                data[date_format]["dew_point"] = float(line[23]) if (is_float(line[23])) else 'NaN'
+                data[date_format]["aver_wind_speed"] = float(line[25]) if (is_float(line[25])) else 'NaN'
+                data[date_format]["wind_run"] = float(line[27]) if (is_float(line[27])) else 'NaN'
+                data[date_format]["soil_temp"] = float(line[29]) if (is_float(line[29])) else 'NaN'
     return data
 
 def match_fire_incident_to_grid(grid, fire_incidents):
@@ -236,6 +254,20 @@ def match_fire_incident_to_grid(grid, fire_incidents):
             #     print(incident.iloc[i,0], inc_lat, inc_long)
     return grid_incident
 
+def daterange(date1, date2):
+    date_list = []
+    for n in range(int ((date2 - date1).days)+1):
+        date_list.append (date1 + timedelta(n))
+    return date_list
+
+start_dt = date(2013, 1, 1)
+end_dt = date(2022, 9, 30)
+
+dates = daterange(start_dt, end_dt)
+
+weather_feat = ["eto", "precipitation", "solar_rad","aver_vapor_press", "max_air_temp",
+                "min_air_temp", "aver_air_temp", "max_humidity", "min_humidity", "aver_humidity",
+                "dew_point", "aver_wind_speed", "wind_run", "soil_temp"]
 
 fires = load_fire_ca(file_ca_list)
 grid = create_grid(10,10)
@@ -243,34 +275,70 @@ fire_grid = match_fire_incident_to_grid(grid,fires)
 station_grid = match_weathersts_to_grid(grid, './weather_data/CIMIS Stations List (January20).xlsx')
 grid_weather = {}
 
+len_valid_features = {}
 for g, s in station_grid.items():
+    print(g,s)
     grid_weather[g]={}
-    weather = extract_weather_2013(s[0])
+    len_valid_features[g] ={}
+    weather_first_sts = extract_weather_2013(s[0])
     for i in range(2014, 2022):
-        weather.update(extract_weather(str(i), s[0]))
-    weather.update(extract_weather_2022(s[0]))
+        weather_first_sts.update(extract_weather(str(i), s[0]))
+    weather_first_sts.update(extract_weather_2022(s[0]))
+
+    for d in dates:
+        if(d in weather_first_sts):
+            grid_weather[g][d] = weather_first_sts[d]
+        else:
+            grid_weather[g][d] = {}
+            for f in weather_feat:
+                grid_weather[g][d][f] = "NaN"
+    for d in dates:
+        len_valid_features[g][d] = {}
+        for f in weather_feat:
+            if grid_weather[g][d][f] != "NaN":
+                len_valid_features[g][d][f] = 1
+            else:
+                len_valid_features[g][d][f] = 0
     if(len(s)>1):
-        dates = list(weather.keys())
-        weather_feat = weather[dates[0]].keys()
         for i in range(1, len(s)):
             tmp_weather = extract_weather_2013(s[i])
             for y in range(2014, 2022):
                 tmp_weather.update(extract_weather(str(y), s[i]))
             tmp_weather.update(extract_weather_2022(s[i]))
             for d in dates:
-                print(d)
                 for f in weather_feat:
-                    print(f)
-                    print(type(weather[d][f]),'****', type(tmp_weather[d][f]))
-                    weather[d][f] += tmp_weather[d][f]
+                    if d in tmp_weather:
+                        if(grid_weather[g][d][f] != "NaN" and tmp_weather[d][f] != "NaN"):
+                            grid_weather[g][d][f] += tmp_weather[d][f]
+                            len_valid_features[g][d][f] += 1
+                        elif(grid_weather[g][d][f] == "NaN" and tmp_weather[d][f] != "NaN"):
+                            grid_weather[g][d][f] = tmp_weather[d][f]
+                            len_valid_features[g][d][f] += 1
+                        else:
+                            continue
+
         for d in dates:
             for f in weather_feat:
-                weather[d][f] /= len(s)
+                if(len_valid_features[g][d][f] != 0 and grid_weather[g][d][f] != "NaN"):
+                    grid_weather[g][d][f] /= len_valid_features[g][d][f]
 
-    grid_weather[g] = weather
+for g in grid_weather.keys():
+    for d in dates:
+        if(g in fire_grid and d in fire_grid[g]):
+            grid_weather[g][d]['has_fire'] = 1
+        else:
+            grid_weather[g][d]['has_fire'] = 0
+weather_feat = weather_feat + ['has_fire']
 
-
-# weather = extract_weather_2013(147)
-# for d in weather.keys():
-#     for k,v in weather[d].items():
-#         print(d, k, type(weather[d][k]), v)
+header = ['grid_id', 'date'] + weather_feat
+header = ','.join(header)
+file_out = open('train_data.csv', 'w')
+file_out.write(header+'\n')
+for g in grid_weather.keys():
+    for d in dates:
+        s = str(g)+','+str(d)+','
+        for f in range(len(weather_feat)):
+            s += str(grid_weather[g][d][weather_feat[f]])+','
+        s = s[:len(s)-1]
+        file_out.write(s+'\n')
+file_out.close()
