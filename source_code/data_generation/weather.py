@@ -1,9 +1,6 @@
-from ast import Return
-from tracemalloc import start
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
-import data_generation as gen
+from source_code.data_generation import data_generation as gen
 from datetime import datetime
 
 #File Naming conventions
