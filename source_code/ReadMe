@@ -1,0 +1,19 @@
+Wildfire project
+
+Data
+ - We are creating the latitude and longitude grid of california map
+ - We map the stations to the grids
+ - Extract daily weather data of each station belonging to each grid
+ - Map the fire incidents to the grid which already had the daily weather data. If a grid on a specific day has at least one fire incident, feature has_fire = 1
+
+Data source
+ - Fire incident: https://www.fire.ca.gov/incidents
+ - Weather data: http://ipm.ucanr.edu/WEATHER/about_weather.html
+               : https://cimis.water.ca.gov/
+               Data retrieval by user then FTP then login as guest
+
+Handling data exception
+ - Remove all the inactive stations and station that is active after 2013
+ - Some stations don't have data on some days or years. Grid information for those dates is NaN
+ - If grid has more than one station, average all the weather data according to the number of not-NaN data of all stations else Nan
+ - If grid doesn't have station, find the nearest station to map
