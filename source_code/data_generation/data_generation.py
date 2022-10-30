@@ -1,4 +1,5 @@
 import math
+import time
 import os.path
 from datetime import datetime, date
 
@@ -21,19 +22,17 @@ def load_fire_ca(file_list, data_path):
 
 
 # grid creation for california state map
-def create_grid(num_lat, num_long):
+# Using the max limits of Latitudes and Longitudes will result in a square grid
+# Grid zones are kept to 1 degree by 1 degree to encompass all parts of the state and locate weather stations
+def create_grid(num_of_grids):
     grids = []
-    delta_lat = (constant.CA_MAX_LAT - constant.CA_MIN_LAT) / num_lat
-    delta_long = (constant.CA_MAX_LONG - constant.CA_MIN_LONG) / num_long
     grid_id = 0
-    for i in range(num_lat):
-        for j in range(num_long):
-            grid_min_lat = constant.CA_MIN_LAT + i * delta_lat
-            grid_max_lat = grid_min_lat + delta_lat
-            grid_min_long = constant.CA_MIN_LONG + j * delta_long
-            grid_max_long = grid_min_long + delta_long
-            grids.append(Grid(grid_id, grid_min_lat, grid_max_lat, grid_min_long, grid_max_long))
-            grid_id += 1
+    if num_of_grids > constant.CALIFORNIA_MAX_NUMBER_OF_GRIDS:
+        num_of_grids = constant.CALIFORNIA_MAX_NUMBER_OF_GRIDS
+    for i in range(num_of_grids):
+        gridCell = constant.CALIFORNIA_ONE_DEGREE_GRIDS[i]       
+        grids.append(Grid(grid_id, gridCell[1], gridCell[0], gridCell[2], gridCell[3]))
+        grid_id += 1
     return grids
 
 
@@ -244,13 +243,13 @@ def match_fire_incident_to_grid(ca_grid, fire_incidents):
 
 
 # generate training data and write to file
-def training_data_to_file(num_of_lat, num_of_long, data_path, station_path, output_path):
+def training_data_to_file(num_of_grids, data_path, station_path, output_path):
     start_dt = date(2013, 1, 1)
     end_dt = date(2022, 9, 30)
     dates = daterange(start_dt, end_dt)
 
     fires = load_fire_ca(constant.FIRE_CA, data_path)
-    grid = create_grid(num_of_lat, num_of_long)
+    grid = create_grid(num_of_grids)
     fire_grid = match_fire_incident_to_grid(grid, fires)
     station_grid = match_weather_station_to_grid(grid, station_path)
     grid_weather = {}
@@ -325,19 +324,20 @@ def training_data_to_file(num_of_lat, num_of_long, data_path, station_path, outp
 
 
 # example for running this method
-# python data_generation.py --num_lat 5 --num_long 5 --data_path ../../data --station_path ../../data/weather/CIMISStationsList.xlsx --output_path ../../data/training/small_test.csv
-def main(argument):
+# python data_generation.py --num_grid 10 --data_path ../../data --station_path ../../data/weather/CIMISStationsList.xlsx --output_path ../../data/training/small_test.csv
+def main(argument):    
     assert argument.data_path is not None
     assert argument.station_path is not None
     assert argument.output_path is not None
-    training_data_to_file(argument.num_lat, argument.num_long, argument.data_path, argument.station_path,
-                          argument.output_path)
+    timeStart = time.time()
+    training_data_to_file(argument.num_grid, argument.data_path, argument.station_path, argument.output_path)
+    timeStop = time.time()
+    print(f'Data Extraction complete, retrival took {(timeStop - timeStart)}')
 
-
+# change default to match the paths on your machine, or run through command console
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--num_lat', type=int, default=10, help='Number of units in latitude')
-    parser.add_argument('--num_long', type=int, default=10, help='Number of units in longitude')
+    parser.add_argument('--num_grid', type=int, default=constant.CALIFORNIA_MAX_NUMBER_OF_GRIDS, help='Number of Grids')
     parser.add_argument('--data_path', type=str, default=None, help='Path to data')
     parser.add_argument('--station_path', type=str, default=None, help='Path to station list file')
     parser.add_argument('--output_path', type=str, default=None, help='Path to output file')
