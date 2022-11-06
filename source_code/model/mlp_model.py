@@ -90,7 +90,7 @@ print(f'sum:{np.sum(output)}, max:{np.max(output)}, percentage with fire:{(np.su
 # 80 percent for Training
 # 20 percent for Testing
 
-X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.6, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.8, random_state=42)
 
 # X_train_full, X_test, y_train_full, y_test = train_test_split(features, labels, test_size=0.3, random_state=42)
 
@@ -125,7 +125,7 @@ print(f'Feature Importance of ExtraTreesClassifier: {extra_trees_clf.feature_imp
 # MLPClassifier using Logistic, Relu, and Tanh activation functions
 #==============================================
 
-mlp_clf = MLPClassifier(random_state=42, max_iter=1000, activation = 'logistic', learning_rate = 'constant', momentum = 0.75, solver = 'adam' )
+mlp_clf = MLPClassifier(random_state=42, max_iter=1000, activation = 'logistic', learning_rate = 'constant', momentum = 0.9, solver = 'adam' )
 mlp_clf.fit(X_train, y_train)
 predictions = mlp_clf.predict(X_test)
 
@@ -139,16 +139,16 @@ predictions = mlp_clf_relu.predict(X_test)
 MLHelper.AccuracyPrediction(predictions, y_test, 'MLPClassifier_relu')
 print(classification_report(y_test, predictions))
 
-mlp_clf_tanh = MLPClassifier(random_state=42, max_iter=1000, activation = 'relu', learning_rate = 'constant', momentum = 0.9, solver = 'adam' )
+mlp_clf_tanh = MLPClassifier(random_state=42, max_iter=1000, activation = 'tanh', learning_rate = 'constant', momentum = 0.9, solver = 'adam' )
 mlp_clf_tanh.fit(X_train, y_train)
 predictions = mlp_clf_tanh.predict(X_test)
 
-MLHelper.AccuracyPrediction(predictions, y_test, 'MLPClassifier_Relu')
+MLHelper.AccuracyPrediction(predictions, y_test, 'MLPClassifier_tanh')
 print(classification_report(y_test, predictions))
 
 #Score all the estimators used and compare
 estimators = [mlp_clf, extra_trees_clf, mlp_clf_relu, mlp_clf_tanh]
-print('MLPClassifier', 'ExtraTreesClassifier', 'MLPClassifier_Relu', 'MLPClassifier_tanh')
+print('MLPClassifier_logistic', 'ExtraTreesClassifier', 'MLPClassifier_Relu', 'MLPClassifier_tanh')
 print([estimator.score(X_test, y_test) for estimator in estimators])
 
 fig = plot_confusion_matrix(mlp_clf, X_test, y_test, display_labels=mlp_clf.classes_)
