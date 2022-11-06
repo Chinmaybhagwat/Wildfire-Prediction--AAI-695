@@ -20,6 +20,11 @@ def load_fire_ca(file_list, data_path):
         fire_data.append(data)
     return fire_data
 
+def load_fire_ca_spatial():
+    fire_data = []
+    data = pandas.read_csv('D:\\MastersAI\\Stevens\\AppliedMachineLearning\\CPE_695WS\\FinalProject\\SpatialData\\SpatialDataExported.csv', header=0, delimiter=',')
+    fire_data.append(data)
+    return fire_data
 
 # grid creation for california state map
 # Using the max limits of Latitudes and Longitudes will result in a square grid
@@ -108,20 +113,20 @@ def extract_weather_2013(station, data_path):
             line = [l.strip() for l in line]
             date_format = datetime.strptime(line[1], '%m/%d/%Y').date()
             data[date_format] = {}
-            data[date_format]["solar_rad"] = float(line[4]) if (is_float(line[4])) else 'NaN'
-            data[date_format]["soil_temp"] = float(line[6]) if (is_float(line[6])) else 'NaN'
-            data[date_format]["max_air_temp"] = float(line[8]) if (is_float(line[8])) else 'NaN'
-            data[date_format]["min_air_temp"] = float(line[10]) if (is_float(line[10])) else 'NaN'
-            data[date_format]["aver_air_temp"] = float(line[12]) if (is_float(line[12])) else 'NaN'
-            data[date_format]["aver_vapor_press"] = float(line[14]) if (is_float(line[14])) else 'NaN'
-            data[date_format]["aver_wind_speed"] = float(line[16]) if (is_float(line[16])) else 'NaN'
-            data[date_format]["precipitation"] = float(line[18]) if (is_float(line[18])) else 'NaN'
-            data[date_format]["max_humidity"] = float(line[20]) if (is_float(line[20])) else 'NaN'
-            data[date_format]["min_humidity"] = float(line[22]) if (is_float(line[22])) else 'NaN'
-            data[date_format]["eto"] = float(line[24]) if (is_float(line[24])) else 'NaN'
-            data[date_format]["aver_humidity"] = float(line[26]) if (is_float(line[26])) else 'NaN'
-            data[date_format]["dew_point"] = float(line[28]) if (is_float(line[28])) else 'NaN'
-            data[date_format]["wind_run"] = float(line[30]) if (is_float(line[30])) else 'NaN'
+            data[date_format]["solar_rad"] = float(line[4]) if (is_float(line[4])) else 0
+            data[date_format]["soil_temp"] = float(line[6]) if (is_float(line[6])) else 0
+            data[date_format]["max_air_temp"] = float(line[8]) if (is_float(line[8])) else 0
+            data[date_format]["min_air_temp"] = float(line[10]) if (is_float(line[10])) else 0
+            data[date_format]["aver_air_temp"] = float(line[12]) if (is_float(line[12])) else 0
+            data[date_format]["aver_vapor_press"] = float(line[14]) if (is_float(line[14])) else 0
+            data[date_format]["aver_wind_speed"] = float(line[16]) if (is_float(line[16])) else 0
+            data[date_format]["precipitation"] = float(line[18]) if (is_float(line[18])) else 0
+            data[date_format]["max_humidity"] = float(line[20]) if (is_float(line[20])) else 0
+            data[date_format]["min_humidity"] = float(line[22]) if (is_float(line[22])) else 0
+            data[date_format]["eto"] = float(line[24]) if (is_float(line[24])) else 0
+            data[date_format]["aver_humidity"] = float(line[26]) if (is_float(line[26])) else 0
+            data[date_format]["dew_point"] = float(line[28]) if (is_float(line[28])) else 0
+            data[date_format]["wind_run"] = float(line[30]) if (is_float(line[30])) else 0
 
     return data
 
@@ -171,20 +176,20 @@ def extract_weather(year, station, data_path):
             line = [l.strip() for l in line]
             date_format = datetime.strptime(line[1], '%m/%d/%Y').date()
             data[date_format] = {}
-            data[date_format]["eto"] = float(line[3]) if (is_float(line[3])) else 'NaN'
-            data[date_format]["precipitation"] = float(line[5]) if (is_float(line[5])) else 'NaN'
-            data[date_format]["solar_rad"] = float(line[7]) if (is_float(line[7])) else 'NaN'
-            data[date_format]["aver_vapor_press"] = float(line[9]) if (is_float(line[9])) else 'NaN'
-            data[date_format]["max_air_temp"] = float(line[11]) if (is_float(line[11])) else 'NaN'
-            data[date_format]["min_air_temp"] = float(line[13]) if (is_float(line[13])) else 'NaN'
-            data[date_format]["aver_air_temp"] = float(line[15]) if (is_float(line[15])) else 'NaN'
-            data[date_format]["max_humidity"] = float(line[17]) if (is_float(line[17])) else 'NaN'
-            data[date_format]["min_humidity"] = float(line[19]) if (is_float(line[19])) else 'NaN'
-            data[date_format]["aver_humidity"] = float(line[21]) if (is_float(line[21])) else 'NaN'
-            data[date_format]["dew_point"] = float(line[23]) if (is_float(line[23])) else 'NaN'
-            data[date_format]["aver_wind_speed"] = float(line[25]) if (is_float(line[25])) else 'NaN'
-            data[date_format]["wind_run"] = float(line[27]) if (is_float(line[27])) else 'NaN'
-            data[date_format]["soil_temp"] = float(line[29]) if (is_float(line[29])) else 'NaN'
+            data[date_format]["eto"] = float(line[3]) if (is_float(line[3])) else 0
+            data[date_format]["precipitation"] = float(line[5]) if (is_float(line[5])) else 0
+            data[date_format]["solar_rad"] = float(line[7]) if (is_float(line[7])) else 0
+            data[date_format]["aver_vapor_press"] = float(line[9]) if (is_float(line[9])) else 0
+            data[date_format]["max_air_temp"] = float(line[11]) if (is_float(line[11])) else 0
+            data[date_format]["min_air_temp"] = float(line[13]) if (is_float(line[13])) else 0
+            data[date_format]["aver_air_temp"] = float(line[15]) if (is_float(line[15])) else 0
+            data[date_format]["max_humidity"] = float(line[17]) if (is_float(line[17])) else 0
+            data[date_format]["min_humidity"] = float(line[19]) if (is_float(line[19])) else 0
+            data[date_format]["aver_humidity"] = float(line[21]) if (is_float(line[21])) else 0
+            data[date_format]["dew_point"] = float(line[23]) if (is_float(line[23])) else 0
+            data[date_format]["aver_wind_speed"] = float(line[25]) if (is_float(line[25])) else 0
+            data[date_format]["wind_run"] = float(line[27]) if (is_float(line[27])) else 0
+            data[date_format]["soil_temp"] = float(line[29]) if (is_float(line[29])) else 0
     return data
 
 
@@ -202,20 +207,20 @@ def extract_weather_2022(station, data_path):
                 line = [l.strip() for l in line]
                 date_format = datetime.strptime(line[1], '%m/%d/%Y').date()
                 data[date_format] = {}
-                data[date_format]["eto"] = float(line[3]) if (is_float(line[3])) else 'NaN'
-                data[date_format]["precipitation"] = float(line[5]) if (is_float(line[5])) else 'NaN'
-                data[date_format]["solar_rad"] = float(line[7]) if (is_float(line[7])) else 'NaN'
-                data[date_format]["aver_vapor_press"] = float(line[9]) if (is_float(line[9])) else 'NaN'
-                data[date_format]["max_air_temp"] = float(line[11]) if (is_float(line[11])) else 'NaN'
-                data[date_format]["min_air_temp"] = float(line[13]) if (is_float(line[13])) else 'NaN'
-                data[date_format]["aver_air_temp"] = float(line[15]) if (is_float(line[15])) else 'NaN'
-                data[date_format]["max_humidity"] = float(line[17]) if (is_float(line[17])) else 'NaN'
-                data[date_format]["min_humidity"] = float(line[19]) if (is_float(line[19])) else 'NaN'
-                data[date_format]["aver_humidity"] = float(line[21]) if (is_float(line[21])) else 'NaN'
-                data[date_format]["dew_point"] = float(line[23]) if (is_float(line[23])) else 'NaN'
-                data[date_format]["aver_wind_speed"] = float(line[25]) if (is_float(line[25])) else 'NaN'
-                data[date_format]["wind_run"] = float(line[27]) if (is_float(line[27])) else 'NaN'
-                data[date_format]["soil_temp"] = float(line[29]) if (is_float(line[29])) else 'NaN'
+                data[date_format]["eto"] = float(line[3]) if (is_float(line[3])) else 0
+                data[date_format]["precipitation"] = float(line[5]) if (is_float(line[5])) else 0
+                data[date_format]["solar_rad"] = float(line[7]) if (is_float(line[7])) else 0
+                data[date_format]["aver_vapor_press"] = float(line[9]) if (is_float(line[9])) else 0
+                data[date_format]["max_air_temp"] = float(line[11]) if (is_float(line[11])) else 0
+                data[date_format]["min_air_temp"] = float(line[13]) if (is_float(line[13])) else 0
+                data[date_format]["aver_air_temp"] = float(line[15]) if (is_float(line[15])) else 0
+                data[date_format]["max_humidity"] = float(line[17]) if (is_float(line[17])) else 0
+                data[date_format]["min_humidity"] = float(line[19]) if (is_float(line[19])) else 0
+                data[date_format]["aver_humidity"] = float(line[21]) if (is_float(line[21])) else 0
+                data[date_format]["dew_point"] = float(line[23]) if (is_float(line[23])) else 0
+                data[date_format]["aver_wind_speed"] = float(line[25]) if (is_float(line[25])) else 0
+                data[date_format]["wind_run"] = float(line[27]) if (is_float(line[27])) else 0
+                data[date_format]["soil_temp"] = float(line[29]) if (is_float(line[29])) else 0
     return data
 
 
@@ -241,6 +246,28 @@ def match_fire_incident_to_grid(ca_grid, fire_incidents):
                     break
     return grid_incident
 
+def match_fire_incident_to_grid2(ca_grid, fire_incidents):
+    grid_incident = {}
+    for incident in fire_incidents:
+        for i in range(len(incident)):
+            inc_lat = float(incident.iloc[i, 2])
+            inc_long = float(incident.iloc[i, 3])
+            start_date = incident.iloc[i, 0][0 : 10]
+            date_format = datetime.strptime(start_date, '%Y-%m-%d').date()
+            end_date = incident.iloc[i, 1][0 : 10]
+            #end_date_format = datetime.strptime(end_date, '%Y-%m-%d').date()
+            arce_burn = incident.iloc[i, 4]
+            for g in ca_grid:
+                if g.min_lat <= inc_lat < g.max_lat and g.min_long <= inc_long < g.max_long:
+                    if g.grid_id not in grid_incident:
+                        grid_incident[g.grid_id] = {date_format: [arce_burn]}
+                    else:
+                        if date_format not in grid_incident[g.grid_id]:
+                            grid_incident[g.grid_id][date_format] = [arce_burn]
+                        else:
+                            grid_incident[g.grid_id][date_format].append(arce_burn)
+                    break
+    return grid_incident
 
 # generate training data and write to file
 def training_data_to_file(num_of_grids, data_path, station_path, output_path):
@@ -270,7 +297,7 @@ def training_data_to_file(num_of_grids, data_path, station_path, output_path):
             else:
                 grid_weather[g][d] = {}
                 for f in constant.WEATHER_FEATURE:
-                    grid_weather[g][d][f] = constant.NAN
+                    grid_weather[g][d][f] = 0
         for d in dates:
             len_valid_features[g][d] = {}
             for f in constant.WEATHER_FEATURE:
@@ -313,24 +340,120 @@ def training_data_to_file(num_of_grids, data_path, station_path, output_path):
     header = ','.join(header)
     file_out = open(output_path, 'w')
     file_out.write(header + '\n')
+    #convert dates to days from start
+    dayCounter = 0
     for g in grid_weather.keys():
         for d in dates:
-            s = str(g) + ',' + str(d) + ','
+            #s = str(g) + ',' + str(d) + ','
+            s = str(g) + ',' + str(dayCounter) + ','
             for f in range(len(weather_feat)):
                 s += str(grid_weather[g][d][weather_feat[f]]) + ','
             s = s[:len(s) - 1]
+            dayCounter = dayCounter + 1
             file_out.write(s + '\n')
     file_out.close()
 
 
+def training_data_to_file_with_spatial(num_of_grids, data_path, station_path, output_path):
+    start_dt = date(2013, 1, 1)
+    end_dt = date(2022, 9, 30)
+    dates = daterange(start_dt, end_dt)
+
+    fires = load_fire_ca_spatial()
+    grid = create_grid(num_of_grids)
+    fire_grid = match_fire_incident_to_grid2(grid, fires)
+    station_grid = match_weather_station_to_grid(grid, station_path)
+    grid_weather = {}
+
+    len_valid_features = {}
+    for g, s in station_grid.items():
+        print(g, s)
+        grid_weather[g] = {}
+        len_valid_features[g] = {}
+        weather_first_sts = extract_weather_2013(s[0], data_path)
+        for i in range(2014, 2022):
+            weather_first_sts.update(extract_weather(str(i), s[0], data_path))
+        weather_first_sts.update(extract_weather_2022(s[0], data_path))
+
+        for d in dates:
+            if d in weather_first_sts:
+                grid_weather[g][d] = weather_first_sts[d]
+            else:
+                grid_weather[g][d] = {}
+                for f in constant.WEATHER_FEATURE:
+                    grid_weather[g][d][f] = 0
+        for d in dates:
+            len_valid_features[g][d] = {}
+            for f in constant.WEATHER_FEATURE:
+                if grid_weather[g][d][f] != constant.NAN:
+                    len_valid_features[g][d][f] = 1
+                else:
+                    len_valid_features[g][d][f] = 0
+        if len(s) > 1:
+            for i in range(1, len(s)):
+                tmp_weather = extract_weather_2013(s[i], data_path)
+                for y in range(2014, 2022):
+                    tmp_weather.update(extract_weather(str(y), s[i], data_path))
+                tmp_weather.update(extract_weather_2022(s[i], data_path))
+                for d in dates:
+                    for f in constant.WEATHER_FEATURE:
+                        if d in tmp_weather:
+                            if grid_weather[g][d][f] != constant.NAN and tmp_weather[d][f] != constant.NAN:
+                                grid_weather[g][d][f] += tmp_weather[d][f]
+                                len_valid_features[g][d][f] += 1
+                            elif grid_weather[g][d][f] == constant.NAN and tmp_weather[d][f] != constant.NAN:
+                                grid_weather[g][d][f] = tmp_weather[d][f]
+                                len_valid_features[g][d][f] += 1
+                            else:
+                                continue
+
+            for d in dates:
+                for f in constant.WEATHER_FEATURE:
+                    if len_valid_features[g][d][f] != 0 and grid_weather[g][d][f] != constant.NAN:
+                        grid_weather[g][d][f] /= len_valid_features[g][d][f]
+
+    for g in grid_weather.keys():
+        for d in dates:
+            if g in fire_grid and d in fire_grid[g]:
+                grid_weather[g][d][constant.HAS_FIRE] = 1
+            else:
+                grid_weather[g][d][constant.HAS_FIRE] = 0
+    weather_feat = constant.WEATHER_FEATURE + [constant.HAS_FIRE]
+
+    header = ['grid_id', 'date'] + weather_feat
+    header = ','.join(header)
+    file_out = open(output_path, 'w')
+    file_out.write(header + '\n')
+    #convert dates to days from start
+    dayCounter = 0
+    for g in grid_weather.keys():
+        for d in dates:
+            #s = str(g) + ',' + str(d) + ','
+            s = str(g) + ',' + str(dayCounter) + ','
+            for f in range(len(weather_feat)):
+                s += str(grid_weather[g][d][weather_feat[f]]) + ','
+            s = s[:len(s) - 1]
+            dayCounter = dayCounter + 1
+            file_out.write(s + '\n')
+    file_out.close()
+
 # example for running this method
 # python data_generation.py --num_grid 10 --data_path ../../data --station_path ../../data/weather/CIMISStationsList.xlsx --output_path ../../data/training/small_test.csv
+# def main(argument):    
+#     assert argument.data_path is not None
+#     assert argument.station_path is not None
+#     assert argument.output_path is not None
+#     timeStart = time.time()
+#     training_data_to_file(argument.num_grid, argument.data_path, argument.station_path, argument.output_path)
+#     timeStop = time.time()
+#     print(f'Data Extraction complete, retrival took {(timeStop - timeStart)}')
+
 def main(argument):    
     assert argument.data_path is not None
     assert argument.station_path is not None
     assert argument.output_path is not None
     timeStart = time.time()
-    training_data_to_file(argument.num_grid, argument.data_path, argument.station_path, argument.output_path)
+    training_data_to_file_with_spatial(argument.num_grid, argument.data_path, argument.station_path, argument.output_path)
     timeStop = time.time()
     print(f'Data Extraction complete, retrival took {(timeStop - timeStart)}')
 
@@ -338,8 +461,8 @@ def main(argument):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--num_grid', type=int, default=constant.CALIFORNIA_MAX_NUMBER_OF_GRIDS, help='Number of Grids')
-    parser.add_argument('--data_path', type=str, default=None, help='Path to data')
-    parser.add_argument('--station_path', type=str, default=None, help='Path to station list file')
-    parser.add_argument('--output_path', type=str, default=None, help='Path to output file')
+    parser.add_argument('--data_path', type=str, default='D:\\MastersAI\\Stevens\\AppliedMachineLearning\\CPE_695WS\\FinalProject\\mainBranch\\wildfire\\data', help='Path to data')
+    parser.add_argument('--station_path', type=str, default='D:\\MastersAI\Stevens\\AppliedMachineLearning\\CPE_695WS\FinalProject\\mainBranch\\wildfire\\data\\weather\\CIMISStationsList.xlsx', help='Path to station list file')
+    parser.add_argument('--output_path', type=str, default='D:\\MastersAI\Stevens\\AppliedMachineLearning\\CPE_695WS\FinalProject\\mainBranch\\wildfire\\data\\training\\spatial_train_data.csv', help='Path to output file')
     args = parser.parse_args()
     main(args)

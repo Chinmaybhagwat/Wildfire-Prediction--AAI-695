@@ -12,7 +12,7 @@ WEATHER_FEATURE = ["eto", "precipitation", "solar_rad", "aver_vapor_press", "max
 START_DATE = '2013-01-01'
 ACTIVE = 'Active'
 HAS_FIRE = 'has_fire'
-NAN = "NaN"
+NAN = 0
 
 CALIFORNIA_MAX_NUMBER_OF_GRIDS = 68
 

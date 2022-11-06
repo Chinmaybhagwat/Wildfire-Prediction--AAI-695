@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
-from source_code.data_generation import data_generation as gen
+#from data_generation import data_generation as gen
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 #File Naming conventions
 # weatherData naming convention YYYYdaily{StationID}
@@ -82,9 +83,9 @@ Longitudes =[-119.732000,-120.112906,-121.793000,-121.726000,-119.281862,-121.77
 -122.463425,-122.532279]
 
 #show the weather stations
-# plt.scatter(Longitudes, Latitudes)
-# plt.grid()
-# plt.show()
+plt.scatter(Longitudes, Latitudes)
+plt.grid()
+plt.show()
 
 latStatinMin = np.min(Latitudes)
 latStatinMax = np.max(Latitudes)
@@ -92,174 +93,174 @@ lngStatinMin = np.min(Longitudes)
 lngStatinMax = np.max(Longitudes)
 
 #Weather Data
-ToplevelFolder = 'WEATHER'
-MonthFolders = ['dailyStnsjan','dailyStnsfeb','dailyStnsmar','dailyStnsapr',
-'dailyStnsmay','dailyStnsjun','dailyStnsjul','dailyStnsaug','dailyStnssep', 'dailyStnsoct', 'dailyStnsnov', 'dailyStnsdec']
+# ToplevelFolder = 'WEATHER'
+# MonthFolders = ['dailyStnsjan','dailyStnsfeb','dailyStnsmar','dailyStnsapr',
+# 'dailyStnsmay','dailyStnsjun','dailyStnsjul','dailyStnsaug','dailyStnssep', 'dailyStnsoct', 'dailyStnsnov', 'dailyStnsdec']
 
-months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+# months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
 
-#Weather data must exist at root directory in order for this file pattern to work
-#Function determines weather CSV path and loads panda data frame from date and station ID number
-def GetWeatherCsv(year, month, stationIdNumber):
-    stationIdString = ''
-    if stationIdNumber < 10:
-        stationIdString = f'00{int(float(str(stationIdNumber)))}'
-    if stationIdNumber >= 10 and stationIdNumber < 100:
-        stationIdString = f'0{int(float(str(stationIdNumber)))}'
-    if stationIdNumber >= 100:
-        stationIdString = f'{int(float(str(stationIdNumber)))}'
+# #Weather data must exist at root directory in order for this file pattern to work
+# #Function determines weather CSV path and loads panda data frame from date and station ID number
+# def GetWeatherCsv(year, month, stationIdNumber):
+#     stationIdString = ''
+#     if stationIdNumber < 10:
+#         stationIdString = f'00{int(float(str(stationIdNumber)))}'
+#     if stationIdNumber >= 10 and stationIdNumber < 100:
+#         stationIdString = f'0{int(float(str(stationIdNumber)))}'
+#     if stationIdNumber >= 100:
+#         stationIdString = f'{int(float(str(stationIdNumber)))}'
 
-    return pd.read_csv(f'dailyStns{year}/{MonthFolders[month-1]}/{months[month - 1]}daily{stationIdString}.csv', header=None, delimiter=',')
+#     return pd.read_csv(f'dailyStns{year}/{MonthFolders[month-1]}/{months[month - 1]}daily{stationIdString}.csv', header=None, delimiter=',')
 
-#Match Index by StationID-1 = index zero based for Latitude and Longitude
-#Just hardcoding this for now to perform the rest of the data testing
-file_ca_list_local = [ "fire_ca_2022.csv"]
-ca_2022 = gen.load_fire_ca(file_ca_list_local)
+# #Match Index by StationID-1 = index zero based for Latitude and Longitude
+# #Just hardcoding this for now to perform the rest of the data testing
+# file_ca_list_local = [ "fire_ca_2022.csv"]
+# ca_2022 = gen.load_fire_ca(file_ca_list_local)
 
-firstIndex = ca_2022[0]
-rawData = pd.read_csv(file_ca_list_local[0], delimiter=';')
+# firstIndex = ca_2022[0]
+# rawData = pd.read_csv(file_ca_list_local[0], delimiter=';')
 
-values = rawData.values
-# Row 0 is the headers
-headers = ['IncidentId', 'UniqueId', 'Name', 'Location' ,'Latitude', 'Longitude',
- 'AcresBurnedDisplay', 'PercentContainedDisplay', 'ExternalIncidentLink',
- 'CountiesList', 'UpdatedDate', 'StartedDate', 'AdminUnit',
- 'IncidentTypeDisplay', 'Url', 'IsActive', 'N']
+# values = rawData.values
+# # Row 0 is the headers
+# headers = ['IncidentId', 'UniqueId', 'Name', 'Location' ,'Latitude', 'Longitude',
+#  'AcresBurnedDisplay', 'PercentContainedDisplay', 'ExternalIncidentLink',
+#  'CountiesList', 'UpdatedDate', 'StartedDate', 'AdminUnit',
+#  'IncidentTypeDisplay', 'Url', 'IsActive', 'N']
 
-print(headers)
+# print(headers)
 
-#grid california by 2 degrees
+# #grid california by 2 degrees
 
-californiaGrids = [[42, 40, -126, -124],
-[42, 40, -124, -122],
-[42, 40, -122, -120],
-[40, 38, -124, -122],
-[40, 38, -122, -120],
-[40, 38, -120, -118],
-[38, 36, -124, -122],
-[38, 36, -122, -120],
-[38, 36, -120, -118],
-[38, 36, -118, -116],
-[36, 34, -122, -120],
-[36, 34, -120, -118],
-[36, 34, -118, -116],
-[36, 34, -116, -114],
-[34, 32, -120, -118],
-[34, 32, -118, -116],
-[34, 32, -116, -114]]
-
-
-#=============================================================
-# Originally I used 15 minute intervals for gridding the state of california, but there were edge cases where a station didn't exist
-# So I went back to 2 degrees and I am just using the first one that is found
-#=============================================================
+# californiaGrids = [[42, 40, -126, -124],
+# [42, 40, -124, -122],
+# [42, 40, -122, -120],
+# [40, 38, -124, -122],
+# [40, 38, -122, -120],
+# [40, 38, -120, -118],
+# [38, 36, -124, -122],
+# [38, 36, -122, -120],
+# [38, 36, -120, -118],
+# [38, 36, -118, -116],
+# [36, 34, -122, -120],
+# [36, 34, -120, -118],
+# [36, 34, -118, -116],
+# [36, 34, -116, -114],
+# [34, 32, -120, -118],
+# [34, 32, -118, -116],
+# [34, 32, -116, -114]]
 
 
-#Find stations
-# Use 15 minute intervals for now, to build grid
-# Latitudes are only positive in california
-#gen.create_grid(round(abs(gen.ca_max_lat-gen.ca_min_lat)*4),round(abs(gen.ca_max_long-gen.ca_min_long)*4))
+# #=============================================================
+# # Originally I used 15 minute intervals for gridding the state of california, but there were edge cases where a station didn't exist
+# # So I went back to 2 degrees and I am just using the first one that is found
+# #=============================================================
 
-# californiaGrids15 = []
-# id = 0
-# for index, grid2Degree in enumerate(californiaGrids): 
-#     print(index)
-#     # californiaGrids15.append(gen.create_grid(index*16,4,4,grid2Degree[0],grid2Degree[1],grid2Degree[2],grid2Degree[3]))
-#     num_lat = 4
-#     num_long = 4
-#     max_lat = grid2Degree[0]
-#     min_lat = grid2Degree[1]
-#     max_long = grid2Degree[2]
-#     min_long = grid2Degree[3]
-#     delta_lat = np.abs(max_lat - min_lat)/num_lat
-#     delta_long = np.abs(max_long - min_long)/num_long
-#     #id = 0
-#     for i in range(num_lat):
-#         for j in range(num_long):
-#             grid_min_lat = min_lat + i*delta_lat
-#             grid_max_lat = grid_min_lat + delta_lat
-#             grid_min_long = min_long + j*delta_long
-#             grid_max_long = grid_min_long + delta_long
-#             californiaGrids15.append(gen.Grid(id, grid_min_lat, grid_max_lat, grid_min_long, grid_max_long))
-#             id += 1
 
-# stationIdsForGrids = np.zeros(len(californiaGrids15))
+# #Find stations
+# # Use 15 minute intervals for now, to build grid
+# # Latitudes are only positive in california
+# #gen.create_grid(round(abs(gen.ca_max_lat-gen.ca_min_lat)*4),round(abs(gen.ca_max_long-gen.ca_min_long)*4))
+
+# # californiaGrids15 = []
+# # id = 0
+# # for index, grid2Degree in enumerate(californiaGrids): 
+# #     print(index)
+# #     # californiaGrids15.append(gen.create_grid(index*16,4,4,grid2Degree[0],grid2Degree[1],grid2Degree[2],grid2Degree[3]))
+# #     num_lat = 4
+# #     num_long = 4
+# #     max_lat = grid2Degree[0]
+# #     min_lat = grid2Degree[1]
+# #     max_long = grid2Degree[2]
+# #     min_long = grid2Degree[3]
+# #     delta_lat = np.abs(max_lat - min_lat)/num_lat
+# #     delta_long = np.abs(max_long - min_long)/num_long
+# #     #id = 0
+# #     for i in range(num_lat):
+# #         for j in range(num_long):
+# #             grid_min_lat = min_lat + i*delta_lat
+# #             grid_max_lat = grid_min_lat + delta_lat
+# #             grid_min_long = min_long + j*delta_long
+# #             grid_max_long = grid_min_long + delta_long
+# #             californiaGrids15.append(gen.Grid(id, grid_min_lat, grid_max_lat, grid_min_long, grid_max_long))
+# #             id += 1
+
+# # stationIdsForGrids = np.zeros(len(californiaGrids15))
+# # found = 0
+
+# # for grid15 in californiaGrids15:
+# #     #print(grid15.output)
+# #     #locate first Station really need to compare distance or do average
+# #     foundStation = False
+# #     for index in range(len(Latitudes)):
+# #         lat = Latitudes[index]
+# #         lng = Longitudes[index]
+# #         if lat <= grid15.max_lat and lat >= grid15.min_lat and lng >= grid15.min_long and lng <= grid15.max_long and foundStation == False:
+# #             print(f'StationID is {index + 1} for bounds {grid15.output}')
+# #             stationIdsForGrids[index] = index + 1
+# #             found = found + 1
+# #             foundStation = True
+# #     if foundStation == False:
+# #         testing = grid15
+
+# stationIdsForGrids = np.zeros(len(californiaGrids))
 # found = 0
+# californiaGrids2Degrees = []
 
-# for grid15 in californiaGrids15:
-#     #print(grid15.output)
+# #redid gridding due to no stations found when using 15 minute intervals
+# for grid2 in californiaGrids:
 #     #locate first Station really need to compare distance or do average
 #     foundStation = False
 #     for index in range(len(Latitudes)):
 #         lat = Latitudes[index]
 #         lng = Longitudes[index]
-#         if lat <= grid15.max_lat and lat >= grid15.min_lat and lng >= grid15.min_long and lng <= grid15.max_long and foundStation == False:
-#             print(f'StationID is {index + 1} for bounds {grid15.output}')
-#             stationIdsForGrids[index] = index + 1
+#         if lat <= grid2[0] and lat >= grid2[1] and lng >= grid2[2] and lng <= grid2[3] and foundStation == False:
+#             gridToAdd = gen.Grid(found, grid2[1], grid2[0], grid2[2], grid2[3])
+#             californiaGrids2Degrees.append(gridToAdd)
+#             print(f'StationID is {index + 1} for bounds {gridToAdd.output}')
+#             stationIdsForGrids[found] = index + 1
 #             found = found + 1
 #             foundStation = True
 #     if foundStation == False:
-#         testing = grid15
-
-stationIdsForGrids = np.zeros(len(californiaGrids))
-found = 0
-californiaGrids2Degrees = []
-
-#redid gridding due to no stations found when using 15 minute intervals
-for grid2 in californiaGrids:
-    #locate first Station really need to compare distance or do average
-    foundStation = False
-    for index in range(len(Latitudes)):
-        lat = Latitudes[index]
-        lng = Longitudes[index]
-        if lat <= grid2[0] and lat >= grid2[1] and lng >= grid2[2] and lng <= grid2[3] and foundStation == False:
-            gridToAdd = gen.Grid(found, grid2[1], grid2[0], grid2[2], grid2[3])
-            californiaGrids2Degrees.append(gridToAdd)
-            print(f'StationID is {index + 1} for bounds {gridToAdd.output}')
-            stationIdsForGrids[found] = index + 1
-            found = found + 1
-            foundStation = True
-    if foundStation == False:
-        #Station was not found for this grid
-        print(f'No station was found for {grid2[1]}, {grid2[0]}, {grid2[2]}, {grid2[3]}')
+#         #Station was not found for this grid
+#         print(f'No station was found for {grid2[1]}, {grid2[0]}, {grid2[2]}, {grid2[3]}')
 
 
+# # def FindMyGrid(testLatitude, testLongitude):
+# #     lat = testLatitude
+# #     lng = testLongitude
+# #     for index, checkGrid in enumerate(californiaGrids15):
+# #             if lat <= checkGrid.max_lat and lat >= checkGrid.min_lat and lng >= checkGrid.min_long and lng <= checkGrid.max_long:
+# #                 print(f'{checkGrid.output}')
+# #                 return checkGrid.grid_id
+
+# # iterates for grids to locate id of grid that contains coordinates
 # def FindMyGrid(testLatitude, testLongitude):
 #     lat = testLatitude
 #     lng = testLongitude
-#     for index, checkGrid in enumerate(californiaGrids15):
+#     for index, checkGrid in enumerate(californiaGrids2Degrees):
 #             if lat <= checkGrid.max_lat and lat >= checkGrid.min_lat and lng >= checkGrid.min_long and lng <= checkGrid.max_long:
 #                 print(f'{checkGrid.output}')
 #                 return checkGrid.grid_id
 
-# iterates for grids to locate id of grid that contains coordinates
-def FindMyGrid(testLatitude, testLongitude):
-    lat = testLatitude
-    lng = testLongitude
-    for index, checkGrid in enumerate(californiaGrids2Degrees):
-            if lat <= checkGrid.max_lat and lat >= checkGrid.min_lat and lng >= checkGrid.min_long and lng <= checkGrid.max_long:
-                print(f'{checkGrid.output}')
-                return checkGrid.grid_id
+# print('printing HEAD')
+# print(rawData.head())
 
-print('printing HEAD')
-print(rawData.head())
+# #This is just done locally for now, need to build this into a function
+# gridLats = rawData['Latitude'].values
+# gridLongs = rawData['Longitude'].values
+# gridTimeStart = rawData['StartedDate'].values
+# gridTimeEnd = rawData['UpdatedDate'].values
 
-#This is just done locally for now, need to build this into a function
-gridLats = rawData['Latitude'].values
-gridLongs = rawData['Longitude'].values
-gridTimeStart = rawData['StartedDate'].values
-gridTimeEnd = rawData['UpdatedDate'].values
+# #Test getting weather data for first input
+# WhatGridIsThis = FindMyGrid(gridLats[0], gridLongs[0])
 
-#Test getting weather data for first input
-WhatGridIsThis = FindMyGrid(gridLats[0], gridLongs[0])
+# #Time formatting is different for the start and end
+# startTime = datetime.strptime(gridTimeStart[0], '%Y-%m-%d')
+# endTime = datetime.strptime(gridTimeEnd[0], '%Y-%m-%d %H:%M:%S')
 
-#Time formatting is different for the start and end
-startTime = datetime.strptime(gridTimeStart[0], '%Y-%m-%d')
-endTime = datetime.strptime(gridTimeEnd[0], '%Y-%m-%d %H:%M:%S')
+# stationToTest = stationIdsForGrids[WhatGridIsThis]
 
-stationToTest = stationIdsForGrids[WhatGridIsThis]
+# weatherDataDay1 = GetWeatherCsv(startTime.year, startTime.month, stationToTest)
 
-weatherDataDay1 = GetWeatherCsv(startTime.year, startTime.month, stationToTest)
-
-#this is just here to force a break point
-b = 5
+# #this is just here to force a break point
+# b = 5
