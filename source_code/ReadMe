@@ -17,3 +17,8 @@ Handling data exception
  - Some stations don't have data on some days or years. Grid information for those dates is NaN
  - If grid has more than one station, average all the weather data according to the number of not-NaN data of all stations else Nan
  - If grid doesn't have station, find the nearest station to map
+
+Model:
+  - Andrew: CNN and MLP
+  - Rahul: Decision tree and Logistic regression
+  - Chinmay: Random forest, svm
