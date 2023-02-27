@@ -1,4 +1,6 @@
 Wildfire project
 
 
-Machine Learning algorithms have been becoming popular in many research areas due to the high precision for end-to-end prediction. In the wildfire area, there are many types of research that have applied different methods of Machine Learning in predicting fire activities. In this paper, we conducted the research based on the most up-to-date data from 2013 to 2022. The algorithms used in the research include multi-layer perceptron (MLP), logistic regression, decision trees, and random forest.
+Machine Learning algorithms have been becoming popular in many research areas due to the high precision for end-to-end prediction. 
+In the wildfire area, there are many types of research that have applied different methods of Machine Learning in predicting fire activities. 
+In this paper, we conducted the research based on the most up-to-date data from 2013 to 2022. The algorithms used in the research include multi-layer perceptron (MLP), logistic regression, decision trees, and random forest.
